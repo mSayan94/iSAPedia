@@ -44,5 +44,5 @@ add_routes(
     path="/api",
 )
 
-# if __name__ == "__main__":
-#     uvicorn.run(api_app, host="localhost", port=8000)
+if __name__ == "__main__":
+    uvicorn.run(api_app, host="localhost", port=8000)

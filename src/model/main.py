@@ -3,7 +3,11 @@ from pathlib import Path
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 from langchain.chains import RetrievalQA
-from model.build import create_prompt_template, create_retriever, create_chat_history
+from model.build import (
+    create_prompt_template,
+    create_retriever,
+    create_chat_history,
+)
 from model.llm_helper import create_azure_chat_llm
 
 
@@ -25,8 +29,9 @@ def load_config(config_file_name="config_model.json"):
 
     # Go up the directory structure until we find the  config file
     for path in current_dir.parents:
-        config_path = path / config_file_name
-        if config_path.exists():
+        config_dir = path / "config"
+        if config_dir.exists():
+            config_path = config_dir / config_file_name
             break
 
     with open(config_path) as f:
@@ -106,5 +111,5 @@ def run_llm(question):
 
 
 # if __name__ == "__main__":
-#     output = main()
+#     output = run_llm("List the type of transaction codes supported for TCS")
 #     print(output["result"])

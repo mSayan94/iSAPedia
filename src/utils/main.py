@@ -2,11 +2,20 @@ import json, logging
 from pathlib import Path
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
-from azure_instances import create_vectorstore, create_document_loader, create_embeddings
-from document_processing import load_documents, preprocess_documents, create_chunks, add_documents_to_vector_store
+from azure_instances import (
+    create_vectorstore,
+    create_document_loader,
+    create_embeddings,
+)
+from document_processing import (
+    load_documents,
+    preprocess_documents,
+    create_chunks,
+    add_documents_to_vector_store,
+)
 
-# This script sets up a custom logging level named "EVENT" with a numeric value of 25. 
-# The value 25 is chosen because it sits between the default INFO (20) and WARNING (30) levels, 
+# This script sets up a custom logging level named "EVENT" with a numeric value of 25.
+# The value 25 is chosen because it sits between the default INFO (20) and WARNING (30) levels,
 # indicating that EVENT is of higher priority than INFO but lower than WARNING.
 # It also configures the logging module to use a custom format for log messages and to log messages at the "EVENT" level and above.
 import logging
@@ -15,27 +24,30 @@ logging.addLevelName(25, "EVENT")  # Define a new level
 format = "%(asctime)s - %(levelname)s - %(message)s"  # Create a custom format
 logging.basicConfig(level=25, format=format)  # Configure the logging module
 
+
 # Function to load the configuration file
-def load_config(config_file_name = 'config_utils.json'):
+def load_config(config_file_name="config_utils.json"):
     # Get the current working directory
     current_dir = Path(__file__).parent
 
     # Go up the directory structure until we find the  config file
     for path in current_dir.parents:
-        config_path = path/config_file_name
-        if config_path.exists():
+        config_dir = path / "config"
+        if config_dir.exists():
+            config_path = config_dir / config_file_name
             break
 
     with open(config_path) as f:
         config = json.load(f)
-    return config 
+    return config
+
 
 # Function to connect to Azure Key Vault
 def connect_to_azure_keyvault(key_vault_uri):
     credential = DefaultAzureCredential()
-    secret_client = SecretClient(
-        vault_url=key_vault_uri, credential=credential)
+    secret_client = SecretClient(vault_url=key_vault_uri, credential=credential)
     return secret_client
+
 
 # Main function
 def main():
@@ -46,7 +58,7 @@ def main():
 
     # Establish connection to Azure Key Vault
     logging.info("Establishing connection to Azure Keyvault...")
-    secret_client = connect_to_azure_keyvault(config['KEY_VAULT_URI'])
+    secret_client = connect_to_azure_keyvault(config["KEY_VAULT_URI"])
     logging.info("Connected to Azure Keyvault successfully...")
 
     # Generate vector store
