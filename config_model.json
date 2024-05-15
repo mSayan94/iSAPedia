@@ -1,0 +1,11 @@
+{
+  "KEY_VAULT_URI": "https://vault-demo-gpt.vault.azure.net/",
+  "AZURE_AISEARCH_SERVICENAME": "az-cognitive-search-svc",
+  "AZURE_AISEARCH_INDEXNAME": "index-azsearch-isapedia",
+  "AZURE_AISEARCH_APIKEY_NAME": "AZURE-SEARCH-API-KEY",
+  "AZURE_BASE_URL": "https://az-apim-svc-westeurope.azure-api.net",
+  "AZURE_OPENAI_DEPLOYMENT_NAME": "gpt-35-turbo-16k-0613",
+  "AZURE_OPENAI_SUBSCRIPTION_NAME": "OCP-APIM-SUBSCRIPTION-KEY",
+  "AZURE_OPENAI_TEMPERATURE": "0.2",
+  "AZURE_OPENAI_API_VERSION": "2023-05-15"
+}

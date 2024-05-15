@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./infra/api.Dockerfile
+      args:
+        - TENANT_ID=9e8d8b0a-3173-4598-a7c4-c4851739b67c
+    image: image-isapedia-api
+    container_name: container-isapedia-api
+    ports:
+      - 8000:8000
+    networks:
+      - nw_isapedia
+
+  gui:
+    build:
+      context: .
+      dockerfile: ./infra/gui.Dockerfile
+    image: image-isapedia-gui
+    container_name: container-isapedia-gui
+    ports:
+      - 8080:8080
+    networks:
+      - nw_isapedia
+    environment:
+      - ENDPOINT=http://20.8.66.181:8000/api/invoke
+
+networks:
+  nw_isapedia:
+    driver: bridge

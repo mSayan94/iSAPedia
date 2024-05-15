@@ -1,0 +1,31 @@
+# Core Dependencies
+python-dotenv
+ipykernel
+
+# Language Processing Libraries
+langchain-openai
+langchain
+langserve
+
+# Web Frameworks
+fastapi
+sse_starlette
+chainlit
+
+# Data Validation and Typing
+pydantic==1.10.11
+typing-inspect
+typing_extensions
+
+# Server Utilities
+uvicorn
+
+# Data Processing Libraries
+pandas
+numpy
+
+# Azure Integration Libraries
+azure-cli
+azure-identity
+azure-keyvault-secrets
+azure-storage-blob

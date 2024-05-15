@@ -1,0 +1,22 @@
+# Ignore Git and SVN directories
+.git
+.svn
+
+# Ignore .env files
+.env
+.venv
+
+# Ignore node modules
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore chainlit files
+*.chainlit
+
+# Ignore Python cache files
+__pycache__
+
+# Ignore Jupyter Notebook files
+*.ipynb

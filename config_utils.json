@@ -1,0 +1,11 @@
+{
+  "KEY_VAULT_URI": "https://vault-demo-gpt.vault.azure.net/",
+  "SECRET_NAME": "CONNECTION-STRING-AZURESTORAGE",
+  "CONTAINER_NAME": "blob-snow-kbarticles",
+  "AZURE_BASE_URL": "https://az-apim-svc-westeurope.azure-api.net",
+  "AZURE_EMBEDDING_DEPLOYMENT_NAME": "text-embedding-ada-002",
+  "AZURE_OPENAI_SUBSCRIPTION_NAME": "OCP-APIM-SUBSCRIPTION-KEY",
+  "AZURE_AISEARCH_URL": "https://az-cognitive-search-svc.search.windows.net",
+  "AZURE_AISEARCH_INDEXNAME": "index-azsearch-isapedia",
+  "AZURE_AISEARCH_APIKEY_NAME": "AZURE-SEARCH-API-KEY"
+}
