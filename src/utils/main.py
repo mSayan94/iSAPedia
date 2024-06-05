@@ -20,9 +20,9 @@ from document_processing import (
 # It also configures the logging module to use a custom format for log messages and to log messages at the "EVENT" level and above.
 import logging
 
-logging.addLevelName(25, "EVENT")  # Define a new level
+# logging.addLevelName(25, "EVENT")  # Define a new level
 format = "%(asctime)s - %(levelname)s - %(message)s"  # Create a custom format
-logging.basicConfig(level=25, format=format)  # Configure the logging module
+logging.basicConfig(level=logging.INFO, format=format)  # Configure the logging module
 
 
 # Function to load the configuration file
@@ -73,7 +73,7 @@ def main():
 
     # Load the documents
     logging.info("Loading documents...")
-    documents = load_documents(loader)
+    documents = load_documents(config, secret_client, loader)
     logging.info("Documents loaded successfully.")
 
     # Preprocess the documents

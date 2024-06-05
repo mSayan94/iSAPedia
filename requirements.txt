@@ -16,6 +16,7 @@ chainlit
 pydantic==1.10.11
 typing-inspect
 typing_extensions
+unstructured[docx]
 
 # Server Utilities
 uvicorn
