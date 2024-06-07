@@ -1,6 +1,9 @@
 from langchain_openai.embeddings import AzureOpenAIEmbeddings
 from langchain_community.vectorstores.azuresearch import AzureSearch
-from langchain_community.document_loaders import AzureBlobStorageContainerLoader
+from langchain_community.document_loaders import (
+    AzureBlobStorageContainerLoader,
+    AzureAIDocumentIntelligenceLoader,
+)
 
 
 def create_embeddings(config, secret_client):
@@ -60,4 +63,22 @@ def create_document_loader(config, secret_client):
     )
     # loader.load()
 
+    return loader
+
+
+def create_docintelligence_loader(sas_url, config, secret_client):
+
+    # Load the configuration variables
+    endpoint = config["AZURE_DOCUMENTINTELLIGENCE_ENDPOINT"]
+    secret_name = config["AZURE_DOCUMENTINTELLIGENCE_KEY"]
+    key = secret_client.get_secret(secret_name).value
+
+    # Create the Azure Document Intelligence Loader instance
+    loader = AzureAIDocumentIntelligenceLoader(
+        api_endpoint=endpoint,
+        api_key=key,
+        url_path=sas_url,
+        api_model="prebuilt-layout",
+        mode="page",
+    )
     return loader

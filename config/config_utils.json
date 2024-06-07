@@ -1,7 +1,11 @@
 {
   "KEY_VAULT_URI": "https://vault-demo-gpt.vault.azure.net/",
+  "STORAGE_ACCOUNT_NAME": "cognitivestoragegpt",
+  "STORAGE_ACCOUNT_SECRET_NAME": "AZURE-STORAGE-API-KEY",
   "SECRET_NAME": "CONNECTION-STRING-AZURESTORAGE",
   "CONTAINER_NAME": "blob-snow-kbarticles",
+  "AZURE_DOCUMENTINTELLIGENCE_ENDPOINT": "https://di-demo-gpt.cognitiveservices.azure.com/",
+  "AZURE_DOCUMENTINTELLIGENCE_KEY": "AZURE-DOCUMENTINTELLIGENCE-API-KEY",
   "AZURE_BASE_URL": "https://az-apim-svc-westeurope.azure-api.net",
   "AZURE_EMBEDDING_DEPLOYMENT_NAME": "text-embedding-ada-002",
   "AZURE_OPENAI_SUBSCRIPTION_NAME": "OCP-APIM-SUBSCRIPTION-KEY",

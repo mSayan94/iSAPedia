@@ -1,10 +1,12 @@
 import json, logging
 from pathlib import Path
+from functools import partial
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 from azure_instances import (
     create_vectorstore,
     create_document_loader,
+    create_docintelligence_loader,
     create_embeddings,
 )
 from document_processing import (
@@ -20,9 +22,9 @@ from document_processing import (
 # It also configures the logging module to use a custom format for log messages and to log messages at the "EVENT" level and above.
 import logging
 
-# logging.addLevelName(25, "EVENT")  # Define a new level
+logging.addLevelName(25, "EVENT")  # Define a new level
 format = "%(asctime)s - %(levelname)s - %(message)s"  # Create a custom format
-logging.basicConfig(level=logging.INFO, format=format)  # Configure the logging module
+logging.basicConfig(level=25, format=format)  # Configure the logging module
 
 
 # Function to load the configuration file
@@ -52,44 +54,46 @@ def connect_to_azure_keyvault(key_vault_uri):
 # Main function
 def main():
     # Load the configuration at the start of the program
-    logging.info("Reading config parameters...")
+    logging.log(25, "Reading config parameters...")
     config = load_config()
-    logging.info("Config parameters were read successfully.")
+    logging.log(25, "Config parameters were read successfully.")
 
     # Establish connection to Azure Key Vault
-    logging.info("Establishing connection to Azure Keyvault...")
+    logging.log(25, "Establishing connection to Azure Keyvault...")
     secret_client = connect_to_azure_keyvault(config["KEY_VAULT_URI"])
-    logging.info("Connected to Azure Keyvault successfully...")
+    logging.log(25, "Connected to Azure Keyvault successfully...")
 
     # Generate vector store
-    logging.info("Creating vector store...")
+    logging.log(25, "Creating vector store...")
     vector_store = create_vectorstore(config, secret_client)
-    logging.info("Vector store created successfully.")
+    logging.log(25, "Vector store created successfully.")
 
     # Generate document loader
-    logging.info("Creating document loader...")
-    loader = create_document_loader(config, secret_client)
-    logging.info("Document loader created successfully.")
+    logging.log(25, "Creating document loader...")
+    loader = partial(
+        create_docintelligence_loader, config=config, secret_client=secret_client
+    )
+    logging.log(25, "Document loader created successfully.")
 
     # Load the documents
-    logging.info("Loading documents...")
+    logging.log(25, "Loading documents...")
     documents = load_documents(config, secret_client, loader)
-    logging.info("Documents loaded successfully.")
+    logging.log(25, "Documents loaded successfully.")
 
     # Preprocess the documents
-    logging.info("Preprocessing documents...")
+    logging.log(25, "Preprocessing documents...")
     documents = preprocess_documents(documents)
-    logging.info("Documents preprocessed successfully.")
+    logging.log(25, "Documents preprocessed successfully.")
 
     # Create chunks
-    logging.info("Creating chunks...")
-    docs = create_chunks(documents)
-    logging.info("Chunks created successfully.")
+    logging.log(25, "Creating chunks...")
+    docs, num_chunks = create_chunks(documents)
+    logging.log(25, f"{num_chunks} Chunks created successfully.")
 
     # Add documents to the Azure AI Search vector store
-    logging.info("Adding documents to vector store...")
+    logging.log(25, "Adding documents to vector store...")
     add_documents_to_vector_store(vector_store, docs)
-    logging.info("Documents added to vector store successfully.")
+    logging.log(25, "Documents added to vector store successfully.")
 
 
 if __name__ == "__main__":
